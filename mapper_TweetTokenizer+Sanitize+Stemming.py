@@ -51,7 +51,7 @@ if __name__ == '__main__':
     output = sys.argv[2]
     outputfile = open(output, 'w')
     brand = 'control'
-    file = 'final_tweets/tweets_{0}.parquet'.format(str(sys.argv[1]))
+    file = 'tweets_{0}.parquet'.format(str(sys.argv[1]))
     clean_words=[]
     tweet_token=[]
     if len(sys.argv) == 4:
