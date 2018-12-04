@@ -14,6 +14,11 @@ from nltk import TweetTokenizer
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 
+chars_to_remove = [',', '.', '!', '(', ')', '/', '^', ':', '...'
+    , " ", ",", "*", ".", "..", "<", "|", ">", "/", "?"
+    , '"', "+", "-", ":"
+    , "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+                   ]
 
 def sanitize(tweet):
 
@@ -29,6 +34,8 @@ def stemming(tweet):
     for word in tweet:
         stemmed = stemmer.stem(word)
         stemmed = stemmed.lstrip("#")
+        stemmed = ''.join([c for c in stemmed if c not in set(chars_to_remove)])
+
         clean_tweet.append(stemmed)
     return clean_tweet
 
@@ -41,12 +48,12 @@ def remove_stopwords(tweet):
 
 def remove_websites(tweet):
 
-    clean_tweet = [word for word in tweet if word[0:4]!="http"]
+    clean_tweet = [word for word in tweet if word[0:4]!="http" and word!=""]
     return clean_tweet
 
 def remove_punctuation(tweet):
 
-    clean_tweet = [word for word in tweet if word not in [',', '.', '!', '(', ')', '/', '^', ':', '...']]
+    clean_tweet = [word for word in tweet if word not in chars_to_remove]
     return clean_tweet
 
 # noinspection PyUnreachableCode
