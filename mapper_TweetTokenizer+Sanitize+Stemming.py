@@ -19,6 +19,7 @@ def sanitize(tweet):
 
     clean_tweet = remove_stopwords(tweet)
     clean_tweet = remove_punctuation(clean_tweet)
+    clean_tweet = remove_websites(clean_tweet)
     return clean_tweet
 
 def stemming(tweet):
@@ -27,6 +28,7 @@ def stemming(tweet):
     stemmer = SnowballStemmer("english")
     for word in tweet:
         stemmed = stemmer.stem(word)
+        stemmed = stemmed.lstrip("#")
         clean_tweet.append(stemmed)
     return clean_tweet
 
@@ -35,6 +37,11 @@ def remove_stopwords(tweet):
     stop_words = stopwords.words('english')
     clean_tweet = [word for word in tweet if word not in stop_words]
 
+    return clean_tweet
+
+def remove_websites(tweet):
+
+    clean_tweet = [word for word in tweet if word[0:4]!="http"]
     return clean_tweet
 
 def remove_punctuation(tweet):
@@ -49,7 +56,7 @@ if __name__ == '__main__':
 
     words = {}
     output = sys.argv[2]
-    outputfile = open(output, 'w')
+    outputfile = open(output, 'w', encoding = 'utf8')
     brand = 'control'
     file = 'tweets_{0}.parquet'.format(str(sys.argv[1]))
     clean_words=[]
