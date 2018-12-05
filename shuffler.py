@@ -9,6 +9,7 @@ if __name__ == '__main__':
        lines.extend(inputfile.readlines())
        inputfile.close()
     lines = sorted(lines)
+    # utf-8 resuelve problema de encoding
     outputfile = open(sys.argv[2], "w",   encoding = 'utf8')
     outputfile.writelines(lines)
     outputfile.close()
