@@ -4,7 +4,6 @@ from elasticsearch import Elasticsearch
 es = Elasticsearch()
 import sys
 
-# """
 if len(sys.argv) == 2:
     search = str(sys.argv[1])
 else:
@@ -16,5 +15,3 @@ if res['hits']['total'] > 0:
         print(hit)
         print(hit["_index"])
         print(hit["_source"])
-        #print("%(control)s %(playstation)s: %(xbox)s" % hit["_source"])
-    # """
